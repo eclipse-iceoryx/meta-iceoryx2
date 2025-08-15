@@ -1,0 +1,10 @@
+header:
+  version: 18
+
+repos:
+  meta-rust-bin:
+    url: https://github.com/rust-embedded/meta-rust-bin.git
+    branch: master
+  meta-iceoryx2:
+    url: https://github.com/eclipse-iceoryx/meta-iceoryx2.git
+    branch: main

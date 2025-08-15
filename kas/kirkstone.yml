@@ -1,0 +1,17 @@
+header:
+  version: 18
+  includes:
+    - base.yml
+
+machine: qemux86-64
+distro: poky
+
+target: iceoryx2-core-image-full
+
+repos:
+  poky:
+    url: https://git.yoctoproject.org/poky.git
+    branch: kirkstone
+    layers:
+      meta:
+      meta-poky:
