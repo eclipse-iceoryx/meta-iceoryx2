@@ -1,9 +1,11 @@
 header:
   version: 18
-
+  includes:
+    - local.yml
 repos:
   meta-rust-bin:
     url: https://github.com/rust-embedded/meta-rust-bin.git
     branch: master
+
   ../meta-iceoryx2:
 
