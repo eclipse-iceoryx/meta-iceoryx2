@@ -90,6 +90,12 @@ the `meta-iceoryx2-bin` layer is required to build iceoryx2 itself.
 We are now ready to build the `iceoryx2-image-full`, which does not only
 contain the libraries and CLI tools but also the examples and tests.
 
+For enable unit tests of iceoryx2 and iceoryx2-cxx, add to local.conf
+
+```sh
+DISTRO_FEATURES:append = " ptest"
+```
+
 ```sh
 bitbake iceoryx2-image-full
 ```
@@ -148,4 +154,21 @@ kas build meta-iceoryx2/kas/kirkstone.yml
 
 ```sh
 kas build meta-iceoryx2/kas/scarthgap.yml
+```
+
+### Run ptest with kas MACHINE qemux86-64
+
+- Bootup QEMU
+
+```sh
+kas shell meta-iceoryx2/kas/scarthgap.yml -c 'runqemu kvm nographic'
+```
+
+- Login and use ptest-runner running test cases
+
+```sh
+# For running iceoryx2 unit tests
+ptest-runner iceoryx2
+# For running iceoryx2-cxx unit tests
+ptest-runner iceoryx2-cxx
 ```

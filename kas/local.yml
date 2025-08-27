@@ -9,6 +9,7 @@ local_conf_header:
     INHERIT += "report-error"
     EXTRA_IMAGE_FEATURES ?= "debug-tweaks"
     USER_CLASSES ?= "buildstats"
+    DISTRO_FEATURES:append = " ptest"
 
   diskmon: |
     BB_DISKMON_DIRS ??= "\

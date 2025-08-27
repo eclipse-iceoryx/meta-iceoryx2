@@ -10,10 +10,10 @@ IMAGE_INSTALL:append = "\
   iceoryx2-cli \
   iceoryx2-benchmarks \
   iceoryx2-examples \
-  iceoryx2-tests \
+  iceoryx2-ptest \
   iceoryx2-c \
   iceoryx2-c-examples \
   iceoryx2-cxx \
-  iceoryx2-cxx-tests \
+  iceoryx2-cxx-ptest \
   iceoryx2-cxx-examples \
   "
