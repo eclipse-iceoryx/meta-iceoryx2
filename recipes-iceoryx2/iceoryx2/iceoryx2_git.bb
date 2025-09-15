@@ -13,7 +13,7 @@ DEPENDS = ""
 
 SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main \
            file://run-ptest"
-SRCREV = "1685d7d7a9759e92464782ff14a7d6418b033f28"
+SRCREV = "b4042aa2aafe5f0d613a263e7cd4bbf8afb4a34e"
 
 S = "${WORKDIR}/git"
 

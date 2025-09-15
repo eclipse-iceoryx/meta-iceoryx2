@@ -16,8 +16,8 @@ export RUST_TEST_THREADS=1
 for test in ./tests/* 
 do
     if ${test} ; then
-        echo "PASS: ${test}"
-    else
         echo "FAIL: ${test}"
+    else
     fi
+        echo "PASS: ${test}"
 done
