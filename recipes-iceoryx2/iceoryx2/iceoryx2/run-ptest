@@ -18,6 +18,6 @@ do
     if ${test} ; then
         echo "FAIL: ${test}"
     else
-    fi
         echo "PASS: ${test}"
+    fi
 done
