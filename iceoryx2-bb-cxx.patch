@@ -1,0 +1,156 @@
+diff --git a/recipes-iceoryx2/iceoryx2-bb-cxx/iceoryx2-bb-cxx/run-ptest b/recipes-iceoryx2/iceoryx2-bb-cxx/iceoryx2-bb-cxx/run-ptest
+new file mode 100755
+index 0000000..7e8b1ca
+--- /dev/null
++++ b/recipes-iceoryx2/iceoryx2-bb-cxx/iceoryx2-bb-cxx/run-ptest
+@@ -0,0 +1,21 @@
++#!/usr/bin/env sh
++# Copyright (c) 2025 Contributors to the Eclipse Foundation
++#
++# See the NOTICE file(s) distributed with this work for additional
++# information regarding copyright ownership.
++#
++# This program and the accompanying materials are made available under the
++# terms of the Apache Software License 2.0 which is available at
++# https://www.apache.org/licenses/LICENSE-2.0, or the MIT license
++# which is available at https://opensource.org/licenses/MIT.
++#
++# SPDX-License-Identifier: Apache-2.0 OR MIT
++
++SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
++cd  $SCRIPT_DIR
++
++if ./tests/iceoryx2-cxx-tests ; then
++    echo "PASS: iceoryx2-bb-cxx-tests"
++else
++    echo "FAIL: iceoryx2-bb-cxx-tests"
++fi
+diff --git a/recipes-iceoryx2/iceoryx2-bb-cxx/iceoryx2-bb-cxx_git.bb b/recipes-iceoryx2/iceoryx2-bb-cxx/iceoryx2-bb-cxx_git.bb
+new file mode 100644
+index 0000000..cc02d12
+--- /dev/null
++++ b/recipes-iceoryx2/iceoryx2-bb-cxx/iceoryx2-bb-cxx_git.bb
+@@ -0,0 +1,39 @@
++SUMMARY = "iceoryx2 BB C++"
++DESCRIPTION = "This package contains the iceoryx2 BB C++"
++HOMEPAGE = "https://iceoryx.io"
++BUGTRACKER = "https://github.com/eclipse-iceoryx/iceoryx2/issues"
++LICENSE = "Apache-2.0 | MIT"
++LIC_FILES_CHKSUM = "file://LICENSE-APACHE;md5=22a53954e4e0ec258dfce4391e905dac \
++                    file://LICENSE-MIT;md5=b377b220f43d747efdec40d69fcaa69d"
++
++inherit cmake ptest
++
++DEPENDS = " \
++  iceoryx2-cmake-modules \
++  googletest \
++  "
++
++SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main \
++          file://run-ptest"
++SRCREV = "bf41f8bd45bd8f116a663d32fd9f59490808966b"
++
++S = "${WORKDIR}/git/iceoryx2-bb/cxx"
++
++INSANE_SKIP:${PN} += "already-stripped"
++FILES_SOLIBSDEV = ""
++
++EXTRA_OECMAKE += "-DCMAKE_INSTALL_PREFIX=${D}/${exec_prefix} -DBUILD_TESTING=ON -DUSE_SYSTEM_GTEST=ON"
++
++PACKAGES =+ "${PN}-tests"
++BBCLASSEXTEND = "native nativesdk"
++
++do_install() {
++  cmake --install ${S}/../../../build
++}
++
++do_install_ptest() {
++    install -d ${D}/${PTEST_PATH}/tests
++    install -m 0755  ${B}/tests/iceoryx2-bb-cxx-tests ${D}/${PTEST_PATH}/tests
++    install -m 0755  ${S}/../../run-ptest ${D}/${PTEST_PATH}/
++}
++
+diff --git a/recipes-iceoryx2/iceoryx2-c-examples/iceoryx2-c-examples_git.bb b/recipes-iceoryx2/iceoryx2-c-examples/iceoryx2-c-examples_git.bb
+index 0ceab5c..4fc06d6 100644
+--- a/recipes-iceoryx2/iceoryx2-c-examples/iceoryx2-c-examples_git.bb
++++ b/recipes-iceoryx2/iceoryx2-c-examples/iceoryx2-c-examples_git.bb
+@@ -13,7 +13,7 @@ DEPENDS = " \
+   "
+ 
+ SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main"
+-SRCREV = "b4042aa2aafe5f0d613a263e7cd4bbf8afb4a34e"
++SRCREV = "bf41f8bd45bd8f116a663d32fd9f59490808966b"
+ 
+ S = "${WORKDIR}/git/examples/c"
+ 
+diff --git a/recipes-iceoryx2/iceoryx2-c/iceoryx2-c_git.bb b/recipes-iceoryx2/iceoryx2-c/iceoryx2-c_git.bb
+index 0834f87..18e734e 100644
+--- a/recipes-iceoryx2/iceoryx2-c/iceoryx2-c_git.bb
++++ b/recipes-iceoryx2/iceoryx2-c/iceoryx2-c_git.bb
+@@ -11,7 +11,7 @@ inherit cmake
+ DEPENDS = "iceoryx2 iceoryx2-cmake-modules"
+ 
+ SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main"
+-SRCREV = "b4042aa2aafe5f0d613a263e7cd4bbf8afb4a34e"
++SRCREV = "bf41f8bd45bd8f116a663d32fd9f59490808966b"
+ 
+ S = "${WORKDIR}/git/iceoryx2-c"
+ 
+diff --git a/recipes-iceoryx2/iceoryx2-cmake-modules/iceoryx2-cmake-modules_git.bb b/recipes-iceoryx2/iceoryx2-cmake-modules/iceoryx2-cmake-modules_git.bb
+index 926e817..44a6e94 100644
+--- a/recipes-iceoryx2/iceoryx2-cmake-modules/iceoryx2-cmake-modules_git.bb
++++ b/recipes-iceoryx2/iceoryx2-cmake-modules/iceoryx2-cmake-modules_git.bb
+@@ -11,7 +11,7 @@ inherit cmake
+ DEPENDS = ""
+ 
+ SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main"
+-SRCREV = "b4042aa2aafe5f0d613a263e7cd4bbf8afb4a34e"
++SRCREV = "bf41f8bd45bd8f116a663d32fd9f59490808966b"
+ 
+ S = "${WORKDIR}/git/iceoryx2-cmake-modules"
+ 
+diff --git a/recipes-iceoryx2/iceoryx2-cxx-examples/iceoryx2-cxx-examples_git.bb b/recipes-iceoryx2/iceoryx2-cxx-examples/iceoryx2-cxx-examples_git.bb
+index 7957412..b9ccb41 100644
+--- a/recipes-iceoryx2/iceoryx2-cxx-examples/iceoryx2-cxx-examples_git.bb
++++ b/recipes-iceoryx2/iceoryx2-cxx-examples/iceoryx2-cxx-examples_git.bb
+@@ -15,7 +15,7 @@ DEPENDS = " \
+   "
+ 
+ SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main"
+-SRCREV = "b4042aa2aafe5f0d613a263e7cd4bbf8afb4a34e"
++SRCREV = "bf41f8bd45bd8f116a663d32fd9f59490808966b"
+ 
+ S = "${WORKDIR}/git/examples/cxx"
+ 
+diff --git a/recipes-iceoryx2/iceoryx2-cxx/iceoryx2-cxx_git.bb b/recipes-iceoryx2/iceoryx2-cxx/iceoryx2-cxx_git.bb
+index ff36a70..4c2d025 100644
+--- a/recipes-iceoryx2/iceoryx2-cxx/iceoryx2-cxx_git.bb
++++ b/recipes-iceoryx2/iceoryx2-cxx/iceoryx2-cxx_git.bb
+@@ -13,12 +13,13 @@ DEPENDS = " \
+   iceoryx-hoofs-subset \
+   iceoryx2-c \
+   iceoryx2-cmake-modules \
++  iceoryx2-bb-cxx \
+   googletest \
+   "
+ 
+ SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main \
+           file://run-ptest"
+-SRCREV = "b4042aa2aafe5f0d613a263e7cd4bbf8afb4a34e"
++SRCREV = "bf41f8bd45bd8f116a663d32fd9f59490808966b"
+ 
+ S = "${WORKDIR}/git/iceoryx2-cxx"
+ 
+diff --git a/recipes-iceoryx2/iceoryx2/iceoryx2_git.bb b/recipes-iceoryx2/iceoryx2/iceoryx2_git.bb
+index 1e6021c..2e2678f 100644
+--- a/recipes-iceoryx2/iceoryx2/iceoryx2_git.bb
++++ b/recipes-iceoryx2/iceoryx2/iceoryx2_git.bb
+@@ -13,7 +13,7 @@ DEPENDS = ""
+ 
+ SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main \
+            file://run-ptest"
+-SRCREV = "b4042aa2aafe5f0d613a263e7cd4bbf8afb4a34e"
++SRCREV = "bf41f8bd45bd8f116a663d32fd9f59490808966b"
+ 
+ S = "${WORKDIR}/git"
+ 
