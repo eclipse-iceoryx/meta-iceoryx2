@@ -13,12 +13,13 @@ DEPENDS = " \
   iceoryx-hoofs-subset \
   iceoryx2-c \
   iceoryx2-cmake-modules \
+  iceoryx2-bb-cxx \
   googletest \
   "
 
 SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main \
           file://run-ptest"
-SRCREV = "b4042aa2aafe5f0d613a263e7cd4bbf8afb4a34e"
+SRCREV = "bf41f8bd45bd8f116a663d32fd9f59490808966b"
 
 S = "${WORKDIR}/git/iceoryx2-cxx"
 
