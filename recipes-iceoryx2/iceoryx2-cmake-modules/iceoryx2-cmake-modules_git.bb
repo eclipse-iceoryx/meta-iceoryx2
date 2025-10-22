@@ -15,7 +15,6 @@ SRCREV = "b4042aa2aafe5f0d613a263e7cd4bbf8afb4a34e"
 
 S = "${WORKDIR}/git/iceoryx2-cmake-modules"
 
-EXTRA_OECMAKE += "-DRUST_BUILD_ARTIFACT_PATH=${IOX2_STAGING_DIR}"
 EXTRA_OECMAKE += "-DCMAKE_INSTALL_PREFIX=${D}/${exec_prefix}"
 
 BBCLASSEXTEND = "native nativesdk"
