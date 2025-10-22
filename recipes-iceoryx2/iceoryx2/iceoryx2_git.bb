@@ -1,5 +1,5 @@
 SUMMARY = "iceoryx2"
-DESCRIPTION = "This package is used to build the iceoryx2 Rust artifacts"
+DESCRIPTION = "This package is used to build iceoryx2-cli and iceoryx2-ffi-c"
 HOMEPAGE = "https://iceoryx.io"
 BUGTRACKER = "https://github.com/eclipse-iceoryx/iceoryx2/issues"
 LICENSE = "Apache-2.0 | MIT"
@@ -11,13 +11,12 @@ do_compile[network] = "1"
 
 DEPENDS = ""
 
-SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main \
-           file://run-ptest"
+SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main"
 SRCREV = "b4042aa2aafe5f0d613a263e7cd4bbf8afb4a34e"
 
 S = "${WORKDIR}/git"
 
-inherit cargo_bin ptest
+inherit cargo_bin
 
 INSANE_SKIP:${PN} += "already-stripped"
 FILES_SOLIBSDEV = ""
@@ -32,12 +31,12 @@ RUST_DEBUG_REMAP = "--remap-path-prefix=${WORKDIR}=${TARGET_DBGSRC_DIR}"
 # See https://github.com/rust-embedded/meta-rust-bin/blob/master/classes/cargo_bin.bbclass
 # for variables to control the compilations
 EXTRA_RUSTFLAGS = "${RUST_DEBUG_REMAP}"
-CARGO_FEATURES = "libc_platform"
-EXTRA_CARGO_FLAGS = "--tests --workspace --all-targets --exclude iceoryx2-ffi-python"
+CARGO_FEATURES = "iceoryx2/libc_platform"
+EXTRA_CARGO_FLAGS = " --package iceoryx2-ffi-c --package iceoryx2-cli"
 
 BBCLASSEXTEND = "native nativesdk"
 
-PACKAGES =+ "${PN}-cli ${PN}-benchmarks ${PN}-examples ${PN}-tests"
+PACKAGES =+ "${PN}-cli"
 
 IOX2_STAGING_DIR = "${STAGING_DIR}/iceoryx2-artifacts"
 
@@ -55,32 +54,6 @@ do_install() {
     install -m 0755 ${CARGO_BINDIR}/iox2-node ${D}${bindir}
     install -m 0755 ${CARGO_BINDIR}/iox2-service ${D}${bindir}
     install -m 0755 ${CARGO_BINDIR}/iox2-tunnel ${D}${bindir}
-
-    install -d ${D}${bindir}/iceoryx2/benchmarks
-    install -m 0755 ${CARGO_BINDIR}/benchmark-event ${D}${bindir}/iceoryx2/benchmarks
-    install -m 0755 ${CARGO_BINDIR}/benchmark-publish-subscribe ${D}${bindir}/iceoryx2/benchmarks
-    install -m 0755 ${CARGO_BINDIR}/benchmark-queue ${D}${bindir}/iceoryx2/benchmarks
-    install -m 0755 ${CARGO_BINDIR}/benchmark-request-response ${D}${bindir}/iceoryx2/benchmarks
-
-    install -d ${D}${bindir}/iceoryx2/examples/rust
-    for example in ${CARGO_BINDIR}/examples/*; do
-        if [ -f "$example" ] && [ -x "$example" ] && [ "${example##*.}" != "so" ]; then
-            install -m 0755 "$example" ${D}${bindir}/iceoryx2/examples/rust
-        fi
-    done
-}
-
-do_install_ptest() {
-    install -d ${D}/${PTEST_PATH}/tests
-    for test in ${CARGO_BINDIR}/deps/*; do
-        if [ -f "$test" ] && [ -x "$test" ] && [ "${test##*.}" != "so" ]; then
-            case "$test" in
-                *benchmark*|*macro*|*tunnels_end_to_end*) continue ;;
-            esac
-            install -m 0755 "$test" ${D}/${PTEST_PATH}/tests
-        fi
-    done
-    install -m 0755 ${S}/../run-ptest ${D}/${PTEST_PATH}/
 }
 
 SUMMARY:${PN}-cli = "The iceoryx2 command line tools"
@@ -93,19 +66,3 @@ FILES:${PN}-cli += "${bindir}/iox2-config"
 FILES:${PN}-cli += "${bindir}/iox2-node"
 FILES:${PN}-cli += "${bindir}/iox2-service"
 FILES:${PN}-cli += "${bindir}/iox2-tunnel"
-
-SUMMARY:${PN}-benchmarks = "The iceoryx2 benchmarks"
-DESCRIPTION:${PN}-benchmarks = "This package contains the iceoryx2 benchmarks. \
-                                They are available in '/usr/bin/iceoryx2/benchmarks'"
-HOMEPAGE:${PN}-benchmarks = "https://iceoryx.io"
-BUGTRACKER:${PN}-benchmarks = "https://github.com/eclipse-iceoryx/iceoryx2/issues"
-FILES:${PN}-benchmarks += "${bindir}/iceoryx2/benchmarks/*"
-
-SUMMARY:${PN}-examples = "The iceoryx2 Rust examples"
-DESCRIPTION:${PN}-examples = "This package contains the iceoryx2 Rust examples. \
-                              They are available in '/usr/bin/iceoryx2/examples'"
-HOMEPAGE:${PN}-examples = "https://iceoryx.io"
-BUGTRACKER:${PN}-examples = "https://github.com/eclipse-iceoryx/iceoryx2/issues"
-FILES:${PN}-examples += "${bindir}/iceoryx2/examples/rust/*"
-
-RDEPENDS:${PN}-ptest:remove = "iceoryx2"
