@@ -11,7 +11,7 @@ inherit cmake
 DEPENDS = "iceoryx2 iceoryx2-cmake-modules"
 
 SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main"
-SRCREV = "bf41f8bd45bd8f116a663d32fd9f59490808966b"
+SRCREV = "40685355dc335f5507b1f505679724fd9f76e035"
 
 S = "${WORKDIR}/git/iceoryx2-c"
 
