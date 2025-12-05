@@ -16,7 +16,7 @@ DEPENDS = " \
   googletest \
   "
 
-SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;branch=main \
+SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;nobranch=1 \
           file://run-ptest"
 
 S = "${WORKDIR}/git/iceoryx2-cxx"
