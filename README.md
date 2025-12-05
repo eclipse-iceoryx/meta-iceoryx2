@@ -106,6 +106,30 @@ uncomment the desired platform from the `Machine Selection`.
 Once the build process completes, the image can be used with the
 `runqemu qemux86-64` command.
 
+## Troubleshooting
+
+In Yocto one of the main requirements is that package versions increases
+in a linear way to ensure compatibility with package managers like `rpm`.
+Since we introduced package versions in `meta-iceoryx2` layer config
+it may happen that version errors are produced while building:
+
+```sh
+ERROR: iceoryx2-cxx-0.7.0-r0 do_packagedata: QA Issue: Package version for package iceoryx2-cxx-src went backwards which would break package feeds (from 0:git-r0 to 0:0.7.0-r0) [version-going-backwards]
+```
+
+It is recommended to cleanup the build cache of the iceoryx2 packages before building the image:
+
+```sh
+bitbake -c cleanall iceoryx-hoofs-subset \
+                    iceoryx-platform-minimal \
+                    iceoryx2 \
+                    iceoryx2-validation-suite \
+                    iceoryx2-c \
+                    iceoryx2-c-examples \
+                    iceoryx2-cmake-modules \
+                    iceoryx2-cxx \
+                    iceoryx2-cxx-examples
+```
 
 ### Run an iceoryx2 example
 
