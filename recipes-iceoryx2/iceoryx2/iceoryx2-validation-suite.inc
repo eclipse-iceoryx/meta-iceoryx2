@@ -31,7 +31,7 @@ RUST_DEBUG_REMAP = "--remap-path-prefix=${WORKDIR}=${TARGET_DBGSRC_DIR}"
 # See https://github.com/rust-embedded/meta-rust-bin/blob/master/classes/cargo_bin.bbclass
 # for variables to control the compilations
 EXTRA_RUSTFLAGS = "${RUST_DEBUG_REMAP}"
-CARGO_FEATURES = "libc_platform"
+CARGO_FEATURES = "iceoryx2/libc_platform"
 EXTRA_CARGO_FLAGS = "--tests --workspace --all-targets --exclude iceoryx2-ffi-python"
 
 BBCLASSEXTEND = "native nativesdk"
