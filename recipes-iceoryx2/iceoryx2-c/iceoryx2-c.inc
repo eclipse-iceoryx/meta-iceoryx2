@@ -26,6 +26,10 @@ FILES:${PN} += "${libdir}/libiceoryx2_ffi_c.so"
 RDEPENDS_${PN}-dev += "${PN}-staticdev"
 BBCLASSEXTEND = "native nativesdk"
 
+do_configure[depends] += "iceoryx2:do_configure"
+do_compile[depends] += "iceoryx2:do_compile"
+do_install[depends] += "iceoryx2:do_install"
+
 do_install() {
   cmake --install ${S}/../../build
 }
