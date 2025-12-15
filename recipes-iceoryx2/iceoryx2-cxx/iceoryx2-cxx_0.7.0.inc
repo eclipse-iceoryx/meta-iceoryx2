@@ -10,7 +10,7 @@ inherit cmake ptest
 
 # NOTE:: googletest requires meta-openembedded/meta-oe
 DEPENDS = " \
-  iceoryx2-bb-cxx \
+  iceoryx-hoofs-subset \
   iceoryx2-c \
   iceoryx2-cmake-modules \
   googletest \
@@ -29,8 +29,8 @@ EXTRA_OECMAKE += "-DCMAKE_INSTALL_PREFIX=${D}/${exec_prefix} -DBUILD_TESTING=ON 
 PACKAGES =+ "${PN}-tests"
 FILES:${PN}-staticdev += "${libdir}/libiceoryx2_cxx.a"
 FILES:${PN} += "${libdir}/libiceoryx2_cxx.so"
-RDEPENDS:${PN}-dev += "${PN}-staticdev iceoryx2-bb-cxx-dev"
-RDEPENDS:${PN} += "iceoryx2-c"
+RDEPENDS:${PN}-dev += "${PN}-staticdev iceoryx-hoofs-subset-dev"
+RDEPENDS:${PN} += "iceoryx-hoofs-subset iceoryx2-c"
 BBCLASSEXTEND = "native nativesdk"
 
 do_install() {

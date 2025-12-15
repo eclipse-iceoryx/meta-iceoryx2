@@ -9,17 +9,15 @@ LIC_FILES_CHKSUM = "file://LICENSE-APACHE;md5=22a53954e4e0ec258dfce4391e905dac \
 inherit cmake
 
 DEPENDS = " \
-  iceoryx2-bb-cxx \
+  iceoryx-hoofs-subset \
   iceoryx2-cmake-modules \
   iceoryx2-cxx \
   "
 
-SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;nobranch=1"
-
 S = "${WORKDIR}/git/examples/cxx"
 
-RDEPENDS:${PN}-dev += "iceoryx2-cxx-staticdev iceoryx2-bb-cxx-dev"
-RDEPENDS:${PN} += "iceoryx2-cxx"
+RDEPENDS:${PN}-dev += "iceoryx2-cxx-staticdev iceoryx-hoofs-subset-dev"
+RDEPENDS:${PN} += "iceoryx-hoofs-subset iceoryx2-cxx"
 BBCLASSEXTEND = "native nativesdk"
 
 do_install() {
