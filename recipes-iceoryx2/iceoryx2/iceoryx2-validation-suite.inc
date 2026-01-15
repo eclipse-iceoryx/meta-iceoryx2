@@ -32,7 +32,7 @@ RUST_DEBUG_REMAP = "--remap-path-prefix=${WORKDIR}=${TARGET_DBGSRC_DIR}"
 # for variables to control the compilations
 EXTRA_RUSTFLAGS = "${RUST_DEBUG_REMAP}"
 CARGO_FEATURES = "iceoryx2/libc_platform"
-EXTRA_CARGO_FLAGS = "--tests --workspace --all-targets --exclude iceoryx2-ffi-python"
+EXTRA_CARGO_FLAGS = "--tests --workspace --all-targets --exclude iceoryx2-ffi-python --exclude component-tests_rust --exclude iceoryx2_tunnel_end_to_end_tests"
 
 BBCLASSEXTEND = "native nativesdk"
 
@@ -58,7 +58,7 @@ do_install_ptest() {
     for test in ${CARGO_BINDIR}/deps/*; do
         if [ -f "$test" ] && [ -x "$test" ] && [ "${test##*.}" != "so" ]; then
             case "$test" in
-                *benchmark*|*macro*|*tunnels_end_to_end*) continue ;;
+                *benchmark*|*component-tests_rust*|*macro*|*tunnel_end_to_end*) continue ;;
             esac
             install -m 0755 "$test" ${D}/${PTEST_PATH}/tests
         fi
