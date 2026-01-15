@@ -58,7 +58,7 @@ do_install_ptest() {
     for test in ${CARGO_BINDIR}/deps/*; do
         if [ -f "$test" ] && [ -x "$test" ] && [ "${test##*.}" != "so" ]; then
             case "$test" in
-                *benchmark*|*component-tests_rust*|*macro*|*tunnel_end_to_end*) continue ;;
+                *benchmark*|*component-tests_rust*|iox2-*|*macro*|*tunnel_end_to_end*) continue ;;
             esac
             install -m 0755 "$test" ${D}/${PTEST_PATH}/tests
         fi
