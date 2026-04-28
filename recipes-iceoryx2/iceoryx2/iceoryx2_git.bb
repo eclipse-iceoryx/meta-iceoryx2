@@ -1,3 +1,3 @@
 require ${BPN}.inc
 
-SRCREV = "2dabbe3b957f9198ab55d70704bcdaf0a7b2b7d8"
+SRCREV = "8d20af8dc164c11e129092530bdd43a068c2d0d2"
