@@ -1,4 +1,4 @@
-# meta-yocto-iceoryx2
+# meta-iceoryx2
 
 Yocto Layer for Eclipse iceoryx2™
 
@@ -199,3 +199,19 @@ ptest-runner iceoryx2-cxx
 # For running iceoryx2-bb-cxx unit tests
 ptest-runner iceoryx2-bb-cxx
 ```
+
+## Selecting the iceoryx2 version
+
+The meta-iceoryx2 repo comes with recipes for multiple iceoryx2 versions. The
+preferred version is set to the latest iceoryx2 release as of the date of the
+meta-iceoryx2 git tag. If a different version needs to be used, e.g. an older
+version or an unreleased git version, the preferred version can be overridden
+by setting the `ICEORYX2_VERSION` variable in the `conf/local.conf` file.
+
+The `ICEORYX2_VERSION` variable is used to set the
+[PREFERRED_VERSION](https://docs.yoctoproject.org/dev/ref-manual/variables.html#term-PREFERRED_VERSION)
+for the recipes.
+
+In cases that more customization is needed, have a look at the
+[meta-iceoryx2-append-layer](examples/meta-iceoryx2-append-layer) example, which
+also shows how to set some build flags.
