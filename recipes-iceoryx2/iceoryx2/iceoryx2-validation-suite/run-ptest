@@ -19,5 +19,6 @@ do
         echo "PASS: ${test}"
     else
         echo "FAIL: ${test}"
+        exit 1
     fi
 done
