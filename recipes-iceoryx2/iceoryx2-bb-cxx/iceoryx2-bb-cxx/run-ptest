@@ -18,4 +18,5 @@ if ./tests/iceoryx2-bb-cxx-tests ; then
     echo "PASS: iceoryx2-bb-cxx-tests"
 else
     echo "FAIL: iceoryx2-bb-cxx-tests"
+    exit 1
 fi
