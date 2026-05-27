@@ -2,7 +2,7 @@ name: Build and Test
 
 on:
   push:
-    branches: [main, release*]
+    branches: [main, release*, iox2-2-add-ci-for-kas]
   pull_request:
     branches: [main, release*]
     types: [opened, ready_for_review, reopened, synchronize]
