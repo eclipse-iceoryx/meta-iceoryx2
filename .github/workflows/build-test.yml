@@ -1,0 +1,29 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [main, release*]
+  pull_request:
+    branches: [main, release*]
+    types: [opened, ready_for_review, reopened, synchronize]
+  workflow_dispatch:
+
+jobs:
+  iceoryx2-qemu:
+    timeout-minutes: 120
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # version v6.0.2
+
+      - name: Save disk space
+        uses: eclipse-iceoryx/iceoryx2/.github/actions/save-disk-space@main
+        with:
+          mode: "remove-unneeded-software-from-runner"
+
+      - name: Build with kas for QEMU-x86_64
+        uses: gajeshbhat/kas-action@ecc6e524195f067d55048782c3a28e3325cf034b # v1.0.0
+        with:
+          kas_file: kas/scarthgap.yml
+          kas_tag: latest
+          parallelism: auto
