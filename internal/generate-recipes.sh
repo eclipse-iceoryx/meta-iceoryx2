@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Copyright (c) 2025 Contributors to the Eclipse Foundation
+# Copyright (c) 2026 Contributors to the Eclipse Foundation
 #
 # See the NOTICE file(s) distributed with this work for additional
 # information regarding copyright ownership.
@@ -64,7 +64,7 @@ while (( "$#" )); do
             echo -e "    --commit-hash <HASH>          The iceoryx2 commit has used for the recipes."
             echo -e "                                  NOTE: Must be the long commit hash with 40 characters."
             echo -e "    --recipe-version <VERSION>    Create or overwrite recipes with the specified <VERSION>"
-            echo -e "                                  NOTE: Can be either 'git' or 'x.y.z'"
+            echo -e "                                  NOTE: Can be either 'git' (default) or 'x.y.z'"
             echo -e ""
             exit 0
             ;;
@@ -120,6 +120,10 @@ if ! [[ ${COMMIT_HASH} =~ ^[0-9a-fA-F]{40}$ ]]; then
 fi
 
 cd $(git rev-parse --show-toplevel)
+
+if [[ ${HAS_RECIPE_VERSION_SET} == false ]];then
+    echo -e "${C_BLUE}INFO:${C_OFF} The recipe version is not set! Using ${C_YELLOW}${RECIPE_VERSION}${C_OFF} as recipes version." >&2
+fi
 
 echo -e "Shall the ${C_YELLOW}${RECIPE_VERSION}${C_OFF} recipes with iceoryx2 ${C_YELLOW}${COMMIT_HASH}${C_OFF} commit hash be created?"
 show_default_selector
