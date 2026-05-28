@@ -10,7 +10,7 @@ on:
 
 jobs:
   iceoryx2-qemu:
-    timeout-minutes: 120
+    timeout-minutes: 240
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
