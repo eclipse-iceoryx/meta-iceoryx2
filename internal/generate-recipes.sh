@@ -139,11 +139,13 @@ if [[ ${SELECTION} == ${YES} ]]; then
     done
 fi
 
-echo -e ""
-echo -e "Shall the ${C_YELLOW}ICEORYX2_VERSION${C_OFF} in ${C_YELLOW}conf/layer.conf${C_OFF} set to ${C_YELLOW}${RECIPE_VERSION}${C_OFF}?"
-show_default_selector
-if [[ ${SELECTION} == ${YES} ]]; then
-    sed -i "s|^ICEORYX2_VERSION ??= .*|ICEORYX2_VERSION ??= \"${RECIPE_VERSION}\"|" conf/layer.conf
+if [[ $RECIPE_VERSION != "git" ]]; then
+    echo -e ""
+    echo -e "Shall the ${C_YELLOW}ICEORYX2_VERSION${C_OFF} in ${C_YELLOW}conf/layer.conf${C_OFF} set to ${C_YELLOW}${RECIPE_VERSION}${C_OFF}?"
+    show_default_selector
+    if [[ ${SELECTION} == ${YES} ]]; then
+        sed -i "s|^ICEORYX2_VERSION ??= .*|ICEORYX2_VERSION ??= \"${RECIPE_VERSION}\"|" conf/layer.conf
+    fi
 fi
 
 echo -e ""
