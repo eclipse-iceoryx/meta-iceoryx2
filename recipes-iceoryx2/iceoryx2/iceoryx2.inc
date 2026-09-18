@@ -51,7 +51,7 @@ do_install() {
     install -m 0755 ${CARGO_BINDIR}/iox2-config ${D}${bindir}
     install -m 0755 ${CARGO_BINDIR}/iox2-node ${D}${bindir}
     install -m 0755 ${CARGO_BINDIR}/iox2-service ${D}${bindir}
-    install -m 0755 ${CARGO_BINDIR}/iox2-tunnel ${D}${bindir}
+    install -m 0755 ${CARGO_BINDIR}/iox2-link ${D}${bindir}
 }
 
 SUMMARY:${PN}-cli = "The iceoryx2 command line tools"
@@ -63,4 +63,4 @@ FILES:${PN}-cli += "${bindir}/iox2"
 FILES:${PN}-cli += "${bindir}/iox2-config"
 FILES:${PN}-cli += "${bindir}/iox2-node"
 FILES:${PN}-cli += "${bindir}/iox2-service"
-FILES:${PN}-cli += "${bindir}/iox2-tunnel"
+FILES:${PN}-cli += "${bindir}/iox2-link"
