@@ -14,6 +14,8 @@ DEPENDS = ""
 SRC_URI = " \
   git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;nobranch=1;name=iceoryx2;destsuffix=iceoryx2 \
 "
+# SRCREV_FORMAT is required in case a bbappend appends another git repo to the SRC_URI
+SRCREV_FORMAT = "iceoryx2"
 
 S = "${WORKDIR}/iceoryx2"
 
