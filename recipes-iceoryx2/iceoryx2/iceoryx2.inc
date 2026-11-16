@@ -11,7 +11,9 @@ do_compile[network] = "1"
 
 DEPENDS = ""
 
-SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;nobranch=1;name=iceoryx2;destsuffix=iceoryx2"
+SRC_URI = " \
+  git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;nobranch=1;name=iceoryx2;destsuffix=iceoryx2 \
+"
 
 S = "${WORKDIR}/iceoryx2"
 

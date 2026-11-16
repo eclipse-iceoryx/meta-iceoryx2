@@ -10,9 +10,11 @@ inherit cmake
 
 DEPENDS = " \
   iceoryx2-c \
-  "
+"
 
-SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;nobranch=1"
+SRC_URI = " \
+  git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;nobranch=1 \
+"
 
 S = "${WORKDIR}/git/examples/c"
 

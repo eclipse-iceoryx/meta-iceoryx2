@@ -17,4 +17,4 @@ IMAGE_INSTALL:append = "\
   iceoryx2-cxx \
   iceoryx2-cxx-ptest \
   iceoryx2-cxx-examples \
-  "
+"
