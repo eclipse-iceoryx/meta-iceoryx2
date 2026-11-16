@@ -9,4 +9,4 @@ inherit core-image
 IMAGE_INSTALL:append = "\
   iceoryx2-c \
   iceoryx2-cxx \
-  "
+"

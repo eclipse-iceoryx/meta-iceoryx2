@@ -3,17 +3,21 @@ DESCRIPTION = "This package is used to build iceoryx2-cli and iceoryx2-ffi-c"
 HOMEPAGE = "https://iceoryx.io"
 BUGTRACKER = "https://github.com/eclipse-iceoryx/iceoryx2/issues"
 LICENSE = "Apache-2.0 | MIT"
-LIC_FILES_CHKSUM = "file://LICENSE-APACHE;md5=22a53954e4e0ec258dfce4391e905dac \
-                    file://LICENSE-MIT;md5=b377b220f43d747efdec40d69fcaa69d"
+LIC_FILES_CHKSUM = "file://${S}/LICENSE-APACHE;md5=22a53954e4e0ec258dfce4391e905dac \
+                    file://${S}/LICENSE-MIT;md5=b377b220f43d747efdec40d69fcaa69d"
 
 # Enable network for the compile task allowing cargo to download dependencies
 do_compile[network] = "1"
 
 DEPENDS = ""
 
-SRC_URI = "git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;nobranch=1"
+SRC_URI = " \
+  git://github.com/eclipse-iceoryx/iceoryx2.git;protocol=https;nobranch=1;name=iceoryx2;destsuffix=iceoryx2 \
+"
+# SRCREV_FORMAT is required in case a bbappend appends another git repo to the SRC_URI
+SRCREV_FORMAT = "iceoryx2"
 
-S = "${WORKDIR}/git"
+S = "${WORKDIR}/iceoryx2"
 
 inherit cargo_bin
 
